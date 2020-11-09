@@ -1,0 +1,14 @@
+@import './normalize.css';
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#nav {
+    z-index: 1;
+}
+
+
+/* #app {
+    padding: 44px 0 0;
+} */
