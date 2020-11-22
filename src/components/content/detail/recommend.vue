@@ -1,22 +1,21 @@
 <template>
     <div class="classification">
-        <class-list v-for="(classArr,index) in twoClassificationData" :key="index" :item="classArr"></class-list>
+        <class-list v-for="(classArr,index) in recommend" :key="index" :item="{...classArr}"></class-list>
     </div>
 </template>
 
 <script>
-import classList from './classification/classList'
+import classList from '../two/classification/classList'
 
 export default {
     data(){
-        return {
-        }
+        return {}
     },
     components:{
         classList
     },
     props:{
-        twoClassificationData:{
+        recommend:{
             type:Array,
             default:[]
         }

@@ -1,30 +1,30 @@
 <template>
       <nav-com>
-    <nav-one path="/one" fontColor="red" :dataFu="dataFu">
-    <template v-slot:img1="data ">
+    <nav-one path="/one" fontColor="red">
+    <template v-slot:img1="data">
         <img src="../../../assets/img/logo.png" alt />
         <p>{{data.text}}</p>
     </template>
     </nav-one>
 
-    <nav-one path="/two" fontColor="blue" :dataFu="dataFu">
+    <nav-one path="/two" fontColor="blue">
     <template v-slot:img1>
     <img slot="img" src="../../../assets/img/logo.png" alt />
-        <p slot="text">home2</p>
+        <p slot="text">分类</p>
         </template>
     </nav-one>
 
-    <nav-one path="/three" fontColor="green" :dataFu="dataFu">
+    <nav-one path="/three" fontColor="green">
     <template v-slot:img1>
         <img slot="img" src="../../../assets/img/logo.png" alt />
-        <p slot="text">home3</p>
+        <p slot="text">购物车</p>
         </template>
     </nav-one>
 
-    <nav-one path="/four" fontColor="pink" :dataFu="dataFu">
+    <nav-one path="/four" fontColor="pink">
     <template v-slot:img1>
     <img slot="img" src="../../../assets/img/logo.png" alt />
-        <p slot="text">home4</p>
+        <p slot="text">我的</p>
         </template>
     </nav-one>
 
@@ -39,7 +39,6 @@ export default {
     return {}
   },
   props:{
-    dataFu:String
   },
   methods:{},
   filters:{},

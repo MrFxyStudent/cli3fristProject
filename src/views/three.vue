@@ -1,94 +1,130 @@
 <template>
     <div id="three">
-        <!-- <scroll class="therrContent" @scrollHeight="tScrollHeight" ref="scroll" :scrollHeight="scrollHeight"> 
-            <ul class="content">
-                <li>列表1</li>
-                <li>列表2</li>
-                <li>列表3</li>
-                <li>列表4</li>
-                <li>列表5</li>
-                <li>列表6</li>
-                <li>列表7</li>
-                <li>列表8</li>
-                <li>列表9</li>
-            </ul>
-        </scroll> -->
-        <twoScrollTop @click.native="scrollTopFun" v-show="isShowScrlloTop"></twoScrollTop>
-        <h1>{{comImgNumTime}}</h1>
-        <button @click="hhAdd">1</button>
+          <nav-top>
+            <div slot='left'></div>
+            <div slot='content'>购物车({{cartCount}})</div>
+            <div slot='right'></div>
+        </nav-top>
+        <scroll ref="scroll">
+            <div class="cart" v-for="(item,index) in cartArr" :key="index">
+                <div class="cartCheckbox">
+                    <check-btn :isClass="item.isClass" @click.native="countIsCheck(index)"></check-btn>
+                </div>
+                <div class="cartImg">
+                    <img :src="item.image" alt="" srcset="">
+                </div>
+                <div class="cartMessage">
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.title}}</p>
+                    <div>
+                        <span>{{item.Price}}</span>
+                        <span>X{{item.count}}</span>
+                    </div>
+                </div>
+            </div>
+        </scroll>
+        <select-all-btn :checkObj="this.$store.state.checkObj"></select-all-btn>
     </div>
 </template>
 
 <script>
-function debonuse(fun,time){
-    //防抖函数
-    let timer = null;
-    return function(){
-        if(timer) clearTimeout(timer);
-        timer = setTimeout(()=>{
-            fun()
-        },time)
-    }
-}
-let a = debonuse(name,1110)
-
-function name(params) {
-    // console.log('name');
-}
-for(let i=0;i<30;i++){
-    a()
-}
-import scroll from '../components/common/scroll'
-import twoScrollTop from '../components/common/scrollTop/scrollTop'
+import scroll from "../components/common/scroll"
+import {mapGetters} from "vuex";
+import navTop from "../components/common/navTop/navTop"
+import checkBtn from "../components/content/Cart/checkBtn"
+import selectAllBtn from "../components/content/Cart/SelectAllBtn"
 export default {
     name:'threeview',
     data(){
         return {
-            isShowScrlloTop:false,
-            scrollHeight:-300,
-            tabType:'tabType:',
-            imgNumTime:-1
-        }
-    },    
-    computed:{
-        comImgNumTime(){
-            return this.tabType+this.imgNumTime
+            cartArr:null,
+            checkObj:this.$store.state.checkObj
         }
     },
     methods:{
-        hhAdd(){
-            this.tabType = this.tabType+(this.scrollHeight+'')
-        },
-        tScrollHeight(position){
-            // console.log(position);
-            position.y<this.scrollHeight?this.isShowScrlloTop=true:this.isShowScrlloTop=false
-        },
-        scrollTopFun(){
-            // console.log('scrollTopFun');
-            this.$refs.scroll.scrollTopTo()
-            // console.log(this.$refs.scroll.scroll.scrollTo(0,0,500));
-        },
+        countIsCheck(index){
+            this.$store.commit("countIsCheck",index)
+        }
+    },
+    mounted(){
+        this.cartArr = this.$store.state.CartArr;
+    },
+    updated(){
+        this.$refs.scroll.scrollrefresh()
+    },
+    computed:{
+        ...mapGetters({
+            cartCount:"cartCount"
+        })
     },
     components:{
         scroll,
-        twoScrollTop
-    },
-    mounted(){
-        this.imgNumTime = this.$store.state.imgNum
-    },
-    created(){
+        navTop,
+        checkBtn,
+        selectAllBtn
     }
-       
 }
 </script>
 
 <style scoped>
 #three{
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
+
 }
-.therrContent{
-    background: red;
+.cart{
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 .1px 1px #888888;
+}
+.cart::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.cart>div{
+    float: left;
+}
+.cartCheckbox{
+    width: 7%;
+    height: 100px;
+    line-height: 100px;
+}
+.cartImg{
+    width: 25%;
+    overflow: hidden;
+    padding-left: 5px;
+    box-sizing: border-box;
+}
+.cartImg img{
+    width: 100%;
+    height: 100px;
+    border-radius: 4px;
+}
+.cartMessage{
+    width: 68%;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+.cartMessage h3{
+    font-size: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.cartMessage p{
+    font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 17px 0;
+}
+.cartMessage div{
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
+}
+.cartMessage div span:nth-child(1){
+    color: red;
+    font-size: 18px;
+    font-weight: 600;
 }
 </style>

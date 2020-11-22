@@ -26,8 +26,8 @@ export default {
         }
     },
     methods:{
-        scrollTopTo(){
-            this.scroll.scrollTo(0,0,500);
+        scrollTopTo(x,y,time){
+            this.scroll.scrollTo(x,y,time);
         },
          scrollrefresh(){
             // console.log('refresh');

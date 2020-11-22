@@ -17,7 +17,7 @@ export function oneRequest(twoobj) {
 //服装商品请求
 export function dataRequest(typeData, pageNum) {
     return request({
-        url: '/api/w6/home/data',
+        url: '/home/data',
         params: {
             type: typeData,
             page: pageNum

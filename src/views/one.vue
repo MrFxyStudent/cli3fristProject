@@ -1,6 +1,6 @@
 <template>
 <div>
-   <h1 @click="oneFun">{{$route.params.id}}</h1>
+   <h1 @click="oneFun">123</h1>
 </div>
 </template>
 

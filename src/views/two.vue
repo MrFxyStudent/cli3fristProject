@@ -17,7 +17,7 @@
             <two-recommend :recommend=recommend></two-recommend>
             <two-feature></two-feature>
             <two-tabcontrol :tabTextlist="['流行','新款','精选']" @typeFun="getType" ref="tabcontrol2" v-show="controlShowDis"></two-tabcontrol>
-            <two-classification :twoClassificationData="twoClassificationData"></two-classification>
+            <two-classification :twoClassificationData="[...twoClassificationData]"></two-classification>
         </scroll>
 
         <two-scroll-top @click.native="scrollTopFun" v-show="!controlShowDis"></two-scroll-top>
@@ -51,7 +51,8 @@ export default {
         imgNumTime:-1,
         debonuseRow:function(){},
         tabcontrolHeight:0,
-        controlShowDis:true
+        controlShowDis:true,
+        scrollY:Number
         }
     },
     computed:{    
@@ -77,6 +78,7 @@ export default {
         },
         dataRequest(){
             dataRequest(this.tabType,this.pageNum).then(res=>{
+                // console.log(res.data.data.list);
                 if(this.isBoolerTabType){
                     this.twoClassificationData = res.data.data.list
                     this.isBoolerTabType = false;
@@ -97,7 +99,7 @@ export default {
             this.dataRequest(this.tabType);
         },
         scrollTopFun(){
-            this.$refs.scroll.scrollTopTo();
+            this.$refs.scroll.scrollTopTo(0,0,500);
         },
         LoadingAxios(a){
             this.pageNum++;
@@ -107,7 +109,8 @@ export default {
             this.tabcontrolHeight = this.$refs.tabcontrol2.$el.offsetTop;
         },
         scrollHeightFun(res){
-            if(Math.abs(res.y) > this.tabcontrolHeight){
+            this.scrollY = Math.abs(res.y);
+            if(this.scrollY > this.tabcontrolHeight){
                 return this.controlShowDis = false
             }
             return  this.controlShowDis = true
@@ -140,10 +143,12 @@ export default {
         console.log('destroyed销毁');
     },
     activated(){
-        console.log('activated');
+        // console.log('activated');
     },
     deactivated(){
-        console.log('deactivated');
+        // console.log('deactivated');
+        // console.log(this.scrollY);
+        // this.$refs.scroll.scrollTopTo(0,this.scrollY,0);
     }
 }
 </script>

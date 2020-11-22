@@ -9,29 +9,35 @@ const three = () =>
     import ('../views/three')
 const four = () =>
     import ('../views/four')
+const detail = () =>
+    import ('../views/detail/detail')
 const routes = [{
-        path: '/:id',
-        redirect: '/one/:id'
+        path: '/',
+        redirect: '/one'
     },
     {
-        path: '/one/:id',
+        path: '/one',
         name: 'one',
         component: one
     },
     {
-        path: '/two/:id',
+        path: '/two',
         name: 'two',
         component: two
     },
     {
-        path: '/three/:id',
+        path: '/three',
         name: 'three',
         component: three
     },
     {
-        path: '/four/:id',
+        path: '/four',
         name: 'four',
         component: four
+    }, {
+        path: '/detail',
+        name: 'detail',
+        component: detail
     }
 ]
 

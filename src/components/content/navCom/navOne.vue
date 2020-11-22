@@ -13,7 +13,6 @@ export default {
     }
   },
   props:{ 
-      dataFu:String,
       path:String,
       fontColor:{
           type:String,
@@ -23,8 +22,7 @@ export default {
   methods:{
     tabActive(val){
       // console.log(this.fontColor);
-      // console.log(this.path+'/'+this.dataFu);
-      this.$router.replace(this.path+'/'+this.dataFu)
+      this.$router.replace(this.path)
     }
   },
   filters:{},
